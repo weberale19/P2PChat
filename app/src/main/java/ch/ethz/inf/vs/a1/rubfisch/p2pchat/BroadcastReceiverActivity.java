@@ -14,12 +14,31 @@ import android.os.Bundle;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BroadcastReceiverActivity extends AppCompatActivity implements PeerListListener{
+public class BroadcastReceiverActivity extends AppCompatActivity { // implements PeerListListener implements PeerListFragment.OnListFragmentInteractionListener
     WifiP2pManager mManager;
     Channel mChannel;
     BroadcastReceiver mReceiver;
     IntentFilter mIntentFilter;
+    private List peers = new ArrayList();
 
+    private PeerListListener peerListListener = new PeerListListener() {
+        @Override
+        public void onPeersAvailable(WifiP2pDeviceList peerList) {
+
+            // Out with the old, in with the new.
+            peers.clear();
+            peers.addAll(peerList.getDeviceList());
+            //TODO: Prompt PeerFragment (ListFragment)
+            // If an AdapterView is backed by this data, notify it
+            // of the change.  For instance, if you have a ListView of available
+            // peers, trigger an update.
+            //((WiFiPeerListAdapter) getListAdapter()).notifyDataSetChanged();
+            if (peers.size() == 0) {
+                //no devices found
+                return;
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,13 +69,14 @@ public class BroadcastReceiverActivity extends AppCompatActivity implements Peer
         unregisterReceiver(mReceiver);
     }
 
-    @Override
+    /*@Override
     public void onPeersAvailable(WifiP2pDeviceList peerList) {
         List<WifiP2pDevice> devices = (new ArrayList<>());
         devices.addAll(peerList.getDeviceList());
 
         //do something with the device list
-    }
+    }*/
+
 
 
 
