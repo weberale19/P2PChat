@@ -61,7 +61,7 @@ public class BroadcastReceiverActivity extends AppCompatActivity implements Peer
 
 
 
-    clickbttn(){
+    clickbttn(){ //TODO: decide what kind of button to start checking for peers
 
         mManager.discoverPeers(mChannel, new WifiP2pManager.ActionListener() {
             @Override
