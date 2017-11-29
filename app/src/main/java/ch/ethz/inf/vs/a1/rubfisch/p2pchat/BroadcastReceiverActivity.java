@@ -3,6 +3,8 @@ package ch.ethz.inf.vs.a1.rubfisch.p2pchat;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.IntentFilter;
+import android.net.wifi.p2p.WifiP2pDevice;
+import android.net.wifi.p2p.WifiP2pDeviceList;
 import android.net.wifi.p2p.WifiP2pManager;
 import android.net.wifi.p2p.WifiP2pManager.Channel;
 import android.net.wifi.p2p.WifiP2pManager.PeerListListener;
@@ -12,7 +14,7 @@ import android.os.Bundle;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BroadcastReceiverActivity extends AppCompatActivity {
+public class BroadcastReceiverActivity extends AppCompatActivity implements PeerListListener{
     WifiP2pManager mManager;
     Channel mChannel;
     BroadcastReceiver mReceiver;
@@ -48,6 +50,13 @@ public class BroadcastReceiverActivity extends AppCompatActivity {
         unregisterReceiver(mReceiver);
     }
 
+    @Override
+    public void onPeersAvailable(WifiP2pDeviceList peerList) {
+        List<WifiP2pDevice> devices = (new ArrayList<>());
+        devices.addAll(peerList.getDeviceList());
+
+        //do something with the device list
+    }
 
 
 

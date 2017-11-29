@@ -26,7 +26,7 @@ public class WifiBroadcastReceiver extends BroadcastReceiver {
     private Channel mChannel;
     private Activity mActivity;
     PeerListListener myPeerListListener;
-    private List peers = new ArrayList();
+    //private List peers = new ArrayList();
 
     public WifiBroadcastReceiver(WifiP2pManager manager, Channel channel,
                                        Activity activity) {
@@ -62,7 +62,15 @@ public class WifiBroadcastReceiver extends BroadcastReceiver {
         }
     }
 
-    private PeerListListener peerListListener = new PeerListListener() {
+    @Override
+    public void onPeersAvailable(WifiP2pDeviceList peerList) {
+        List<WifiP2pDevice> devices = (new ArrayList<>());
+        devices.addAll(peerList.getDeviceList());
+
+        //do something with the device list
+    }
+
+   /* private PeerListListener peerListListener = new PeerListListener() {
         @Override
         public void onPeersAvailable(WifiP2pDeviceList peerList) {
 
@@ -105,7 +113,7 @@ public class WifiBroadcastReceiver extends BroadcastReceiver {
                         Toast.LENGTH_SHORT).show();
             }
         });
-    }
+    } */
 }
 /* Change device name
 Method m = manager.getClass().getMethod("setDeviceName", new Class[]     {channel.getClass(), String.class,
