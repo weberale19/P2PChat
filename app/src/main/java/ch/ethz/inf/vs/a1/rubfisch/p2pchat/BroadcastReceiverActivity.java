@@ -10,11 +10,15 @@ import android.net.wifi.p2p.WifiP2pManager.Channel;
 import android.net.wifi.p2p.WifiP2pManager.PeerListListener;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BroadcastReceiverActivity extends AppCompatActivity { // implements PeerListListener implements PeerListFragment.OnListFragmentInteractionListener
+import ch.ethz.inf.vs.a1.rubfisch.p2pchat.dummy.DummyContent;
+
+public class BroadcastReceiverActivity extends AppCompatActivity implements PeerListListener, PeerFragment.OnListFragmentInteractionListener{
     WifiP2pManager mManager;
     Channel mChannel;
     BroadcastReceiver mReceiver;
@@ -45,6 +49,11 @@ public class BroadcastReceiverActivity extends AppCompatActivity { // implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_broadcast_receiver);
 
+        // get name entered by user in MainActivity
+        Bundle extras = getIntent().getExtras();
+        String name = extras.getString("nameText");
+        Log.d("name", name);
+
         mManager = (WifiP2pManager) getSystemService(Context.WIFI_P2P_SERVICE);
         mChannel = mManager.initialize(this, getMainLooper(), null);
         mReceiver = new WifiBroadcastReceiver(mManager, mChannel, this);  //Setting up Wifi Receiver
@@ -69,32 +78,37 @@ public class BroadcastReceiverActivity extends AppCompatActivity { // implements
         unregisterReceiver(mReceiver);
     }
 
-    /*@Override
+    @Override
     public void onPeersAvailable(WifiP2pDeviceList peerList) {
         List<WifiP2pDevice> devices = (new ArrayList<>());
         devices.addAll(peerList.getDeviceList());
 
         //do something with the device list
-    }*/
+    }
 
 
 
 
 
-    clickbttn(){ //TODO: decide what kind of button to start checking for peers
-
+    public void onRefresh(View view) {
         mManager.discoverPeers(mChannel, new WifiP2pManager.ActionListener() {
             @Override
             public void onSuccess() {
-        ... //will not provide info about who it discovered
+                //will not provide info about who it discovered
             }
 
             @Override
             public void onFailure(int reasonCode) {
-        ...
+
             }
         });
     }
 
 
+
+
+    @Override
+    public void onListFragmentInteraction(DummyContent.DummyItem item) {
+
+    }
 }
