@@ -4,6 +4,13 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal">
 
+    <ImageButton
+        android:id="@+id/user_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_margin"
+        android:src="@drawable/icons8-add-user-male-50"
+    />
     <TextView
         android:id="@+id/id"
         android:layout_width="wrap_content"
