@@ -9,7 +9,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
-        android:src="@drawable/icons8-add-user-male-50"
+        android:src="@drawable/ic_person_add_black_24dp"
+        android:background="#00000000"
     />
     <TextView
         android:id="@+id/id"
