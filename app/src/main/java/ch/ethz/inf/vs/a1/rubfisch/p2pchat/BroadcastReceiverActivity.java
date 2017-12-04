@@ -12,6 +12,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +27,8 @@ public class BroadcastReceiverActivity extends AppCompatActivity implements Peer
     BroadcastReceiver mReceiver;
     IntentFilter mIntentFilter;
     private List peers = new ArrayList();
+    private ListView mListView;
+    private ArrayAdapter<String> WifiP2parrayAdapter;
 
     private PeerListListener peerListListener = new PeerListListener() {
         @Override
@@ -33,6 +38,16 @@ public class BroadcastReceiverActivity extends AppCompatActivity implements Peer
             peers.clear();
             peers.addAll(peerList.getDeviceList());
             //TODO: Prompt PeerFragment (ListFragment)
+            WifiP2parrayAdapter.clear();
+            for (WifiP2pDevice peer : peerList.getDeviceList()) {
+
+
+                WifiP2parrayAdapter.add(peer.deviceName); //+ "\n" + peer.deviceAddress
+
+                // set textbox search_result.setText(peer.deviceName);
+
+
+            }
             // If an AdapterView is backed by this data, notify it
             // of the change.  For instance, if you have a ListView of available
             // peers, trigger an update.
@@ -62,6 +77,21 @@ public class BroadcastReceiverActivity extends AppCompatActivity implements Peer
         mIntentFilter.addAction(WifiP2pManager.WIFI_P2P_PEERS_CHANGED_ACTION);
         mIntentFilter.addAction(WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION);
         mIntentFilter.addAction(WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION);
+        mListView = (ListView) findViewById(R.id.ListView);
+        WifiP2parrayAdapter = new ArrayAdapter<String>(this, R.layout.fragment_peer,);
+        mListView.setAdapter(WifiP2parrayAdapter);
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+                                    long arg3) {
+                // TODO Connect to selected item
+                //Log.d("############","Items " +  MoreItems[arg2] );
+            }
+
+        });
+
+
 
     }
 
