@@ -28,6 +28,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".BroadcastReceiverActivity"></activity>
+        <activity android:name=".ChatActivity" android:windowSoftInputMode="adjustPan|stateHidden" android:configChanges="orientation|screenSize|keyboard">>
+            </activity>
     </application>
 
 </manifest>
